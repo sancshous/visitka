@@ -8,13 +8,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware для обслуживания статических файлов из папки 'dist' и 'lessons'
-app.use(express.static(path.join(__dirname, 'dist')));
+// Middleware для обслуживания статических файлов из папки 'public' и 'lessons'
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/lessons', express.static(path.join(__dirname, 'lessons')));
 
 // Маршрут для основной страницы приложения
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
