@@ -26,8 +26,8 @@ watch(route, () => {
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Модули</RouterLink>
-        <span v-if="currentModuleName"> / <RouterLink :to="'/modul/' + currentModuleName">{{ currentModuleName }}</RouterLink></span>
-        <span v-if="currentLessonName"> / {{ currentLessonName }}</span>
+        <a style="width: 160px;" v-if="currentModuleName"><RouterLink :to="'/modul/' + currentModuleName">{{ currentModuleName }}</RouterLink></a>
+        <a style="width: 120px;" v-if="currentLessonName">{{ currentLessonName }}</a>
       </nav>
     </div>
   </header>
@@ -58,8 +58,10 @@ nav a.router-link-exact-active:hover {
 }
 
 nav a {
-  display: inline-block;
-  padding: 0 1rem;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
   border-left: 1px solid var(--color-border);
 }
 
