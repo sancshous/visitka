@@ -1,18 +1,33 @@
+<!-- App.vue -->
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
+import { ref, watch } from 'vue'
+
+const route = useRoute()
+const currentModuleName = ref('')
+const currentLessonName = ref('')
+
+watch(route, () => {
+  if (route.name === 'lessonDetail') {
+    currentModuleName.value = route.params.moduleName
+    currentLessonName.value = route.params.lessonName
+  } else if (route.name === 'moduleDetail') {
+    currentModuleName.value = route.params.moduleName
+    currentLessonName.value = ''
+  } else {
+    currentModuleName.value = ''
+    currentLessonName.value = ''
+  }
+})
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/">Модули</RouterLink>
+        <span v-if="currentModuleName"> / <RouterLink :to="'/modul/' + currentModuleName">{{ currentModuleName }}</RouterLink></span>
+        <span v-if="currentLessonName"> / {{ currentLessonName }}</span>
       </nav>
     </div>
   </header>
@@ -22,16 +37,12 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <style scoped>
 header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 nav {
+  display: flex;
   width: 100%;
   font-size: 12px;
   text-align: center;
@@ -63,10 +74,6 @@ nav a:first-of-type {
     padding-right: calc(var(--section-gap) / 2);
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
   header .wrapper {
     display: flex;
     place-items: flex-start;
@@ -77,7 +84,6 @@ nav a:first-of-type {
     text-align: left;
     margin-left: -1rem;
     font-size: 1rem;
-
     padding: 1rem 0;
     margin-top: 1rem;
   }
