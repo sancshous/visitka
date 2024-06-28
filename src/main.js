@@ -1,5 +1,4 @@
 import './assets/main.css'
-import './assets/images/*/*.png'
 
 import { createApp } from 'vue'
 import App from './App.vue'
