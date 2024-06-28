@@ -3,6 +3,7 @@
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
+import images from '@/utils/importImages';
 
 const route = useRoute()
 const lessonContent = ref('')
@@ -20,6 +21,7 @@ const updateLessonContent = async () => {
 
 watch(route, updateLessonContent)
 updateLessonContent()
+console.log(images);
 </script>
 
 <template>
