@@ -5,7 +5,6 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     outDir: 'dist',
-    assetsDir: 'assets',
-    assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.css']
+    assetsDir: 'assets'
   }
 })
