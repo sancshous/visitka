@@ -3,7 +3,6 @@
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
-import images from '@/utils/importImages'
 
 const route = useRoute()
 const lessonContent = ref('')
@@ -13,13 +12,7 @@ const updateLessonContent = async () => {
   const lessonName = route.params.lessonName
   try {
     const response = await axios.get(`/lessons/${moduleName}/${lessonName}.html`)
-    let content = response.data
-    // Замена путей к изображениям на динамические импорты
-    Object.keys(images).forEach((key) => {
-      const imagePath = images[key]
-      content = content.replace(new RegExp(key, 'g'), imagePath)
-    })
-    lessonContent.value = content
+    lessonContent.value = response.data
   } catch (error) {
     lessonContent.value = 'Ошибка при загрузке содержимого'
   }

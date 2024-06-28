@@ -1,13 +1,16 @@
 // src/utils/importImages.js
-function importAll(r) {
-    let images = {};
-    r.keys().forEach((item) => {
-      images[item.replace('./', '')] = r(item);
-    });
+async function importAll(r) {
+    const images = {};
+    const modules = await Promise.all(
+      r.keys().map(async (key) => {
+        const module = await import('/src/assets/images/lesson1/' + key.slice(2));
+        images[key.slice(2)] = module.default;
+      })
+    );
     return images;
   }
   
-  const images = importAll(require.context('@/assets/images', true, /\.(png|jpe?g|svg)$/));
+  const images = await importAll(import.meta.globEager('/src/assets/images/lesson1/*.png'));
   
   export default images;
   
